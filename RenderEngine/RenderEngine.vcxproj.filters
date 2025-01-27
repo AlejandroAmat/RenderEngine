@@ -44,5 +44,16 @@
     <ClInclude Include="..\headers\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\headers\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\shaders\shader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\shaders\shader.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

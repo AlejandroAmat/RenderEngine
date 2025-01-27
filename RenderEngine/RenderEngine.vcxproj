@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Alejandro\Documents\RenderEngine\ext\glew-2.2.0\include;C:\Users\Alejandro\Documents\RenderEngine\ext\glfw-3.4\include\GLFW;C:\Users\Alejandro\Documents\RenderEngine\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alejandro\Documents\RenderEngine\ext\glew-2.2.0\include;C:\Users\Alejandro\Documents\RenderEngine\ext\glfw-3.4\include\GLFW;C:\Users\Alejandro\Documents\RenderEngine\headers;C:\Users\Alejandro\Documents\RenderEngine\ext\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Alejandro\Documents\RenderEngine\ext\glew-2.2.0\include;C:\Users\Alejandro\Documents\RenderEngine\ext\glfw-3.4\include\GLFW;C:\Users\Alejandro\Documents\RenderEngine\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alejandro\Documents\RenderEngine\ext\glew-2.2.0\include;C:\Users\Alejandro\Documents\RenderEngine\ext\glfw-3.4\include\GLFW;C:\Users\Alejandro\Documents\RenderEngine\headers;C:\Users\Alejandro\Documents\RenderEngine\ext\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,8 +148,13 @@
   <ItemGroup>
     <ClInclude Include="..\headers\Mesh.h" />
     <ClInclude Include="..\headers\Shader.h" />
+    <ClInclude Include="..\headers\stb_image.h" />
     <ClInclude Include="..\headers\Texture.h" />
     <ClInclude Include="..\headers\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\shaders\shader.frag" />
+    <None Include="..\src\shaders\shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,18 @@
+#version 330
+
+layout (location=0) in vec3 pos;
+layout (location=1) in vec2 tex;
+
+out vec4 vCol;
+out vec2 TexCoord;
+
+uniform mat4 projection;
+uniform mat4 model;
+
+void main(){
+	
+	gl_Position = projection* model * vec4(pos, 1.0);
+	vCol = vec4(tex, 0.5, 1);
+	
+	TexCoord = tex;
+}
