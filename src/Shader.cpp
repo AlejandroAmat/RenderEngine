@@ -6,6 +6,7 @@ Shader::Shader()
 	m_uniformModel = 0;
 	m_uniformProjection = 0;
 	m_uniformView = 0;
+	m_uniformTexture = 0;
 }
 
 void Shader::createShader(const char* vert, const char* frag)
@@ -49,6 +50,7 @@ void Shader::clearShader()
 	m_uniformModel = 0;
 	m_uniformProjection = 0;
 	m_uniformView = 0;
+	m_uniformTexture = 0;
 }
 
 Shader::~Shader()
@@ -90,6 +92,7 @@ void Shader::compileShader(const char* vert, const char* frag)
 	m_uniformProjection = glGetUniformLocation(m_shaderID, "projection");
 	m_uniformModel = glGetUniformLocation(m_shaderID, "model");
 	//uniformView = glGetUniformLocation(shaderID, "view");*/
+	m_uniformTexture = glGetUniformLocation(m_shaderID, "theTexture");
 	printf("%u  ", m_uniformProjection);
 	printf("%u  ", m_uniformModel);
 	

@@ -1,19 +1,21 @@
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "cstdio"
 #include "Window.h"
 #include "Mesh.h"
 #include "vector"
 #include "Shader.h"
+#include "Texture.h"
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
 
-
-
 std::vector<Mesh*> objList;
 std::vector<Shader> shadersList;
 const float toRadians = 3.14159265f / 180.0f;
+
 
 void CreateObjects()
 {
@@ -33,8 +35,8 @@ void CreateObjects()
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v
-			-1.0f, -1.0f, 0.0f,		1.0f, 0.0f,
-			0.0f, -1.0f, -1.0f,		0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f,		0.0f, 0.0f,
+			0.0f, -1.0f, -1.0f,		0.5f, 0.0f,
 			1.0f, -1.0f, 0.0f,		1.0f, 0.0f,
 			0.0f, 1.0f, 0.0f,		0.5f, 1.0f
 	};
@@ -61,10 +63,9 @@ int main() {
 	CreateObjects();
 	createShaders();
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
-	/*glm::mat4 projection = glm::perspective(glm::radians(60.0f), (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
-	projection = glm::mat4(1.0);*/
-	glm::mat4 projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 1.0f);
-	
+	glm::mat4 projection = glm::perspective(glm::radians(60.0f), (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
+	Texture t1("../Textures/brick.png");
+	t1.loadTexture();
 
 	float grad = 0;
 	while (!mainWindow.getShouldClose()) {
@@ -77,12 +78,12 @@ int main() {
 		uniformModel = shadersList[0].getModelUniform();
 		uniformProjection = shadersList[0].getProjectionUniform();
 		glm::mat4 model = glm::mat4(1.0f); 
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Optional: Translate if needed
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f)); // Optional: Translate if needed
 		model = glm::rotate(model, glm::radians(grad), glm::vec3(0.0f, 1.0f, 0.0f)); // Optional: Rotate
 		model = glm::scale(model, glm::vec3(1.0f)); // Optional: Scale
-	
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		t1.useTexture();
 		objList[1]->RenderMesh();
 		glUseProgram(0);
 		mainWindow.swapBuffers();
