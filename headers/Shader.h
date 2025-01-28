@@ -14,6 +14,7 @@ public:
 
 	const GLuint getProjectionUniform() const{ return m_uniformProjection; }
 	const GLuint getModelUniform() const{ return m_uniformModel; }
+	const GLuint getViewUniform() const{ return m_uniformView; }
 	const GLuint getTextureUniform() const{ return m_uniformTexture; }
 	~Shader();
 
