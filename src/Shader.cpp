@@ -7,6 +7,9 @@ Shader::Shader()
 	m_uniformProjection = 0;
 	m_uniformView = 0;
 	m_uniformTexture = 0;
+	m_uniformLightColor = 0;
+	m_uniformLightAmbientIntensity = 0;
+	m_uniformLightPosition = 0;
 }
 
 void Shader::createShader(const char* vert, const char* frag)
@@ -93,9 +96,13 @@ void Shader::compileShader(const char* vert, const char* frag)
 	m_uniformModel = glGetUniformLocation(m_shaderID, "model");
 	m_uniformView = glGetUniformLocation(m_shaderID, "view");
 	m_uniformTexture = glGetUniformLocation(m_shaderID, "theTexture");
+	m_uniformLightColor = glGetUniformLocation(m_shaderID, "directional.color");
+	m_uniformLightAmbientIntensity = glGetUniformLocation(m_shaderID, "directional.ambient");
+	m_uniformLightPosition = glGetUniformLocation(m_shaderID, "directional.pos");
+}
 
 	
-}
+
 
 void Shader::addShader(GLuint program, const char* shaderCode, GLenum shaderType)
 {
