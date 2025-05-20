@@ -69,6 +69,8 @@ glm::mat4 Camera::calculateViewMatrix()
 	return glm::lookAt(position, position + front, up);
 }
 
+
+
 Camera::~Camera()
 {
 }

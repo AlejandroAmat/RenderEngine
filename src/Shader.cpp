@@ -99,6 +99,8 @@ void Shader::compileShader(const char* vert, const char* frag)
 	m_uniformLightColor = glGetUniformLocation(m_shaderID, "directional.color");
 	m_uniformLightAmbientIntensity = glGetUniformLocation(m_shaderID, "directional.ambient");
 	m_uniformLightPosition = glGetUniformLocation(m_shaderID, "directional.pos");
+	m_uniformDiffIntensity = glGetUniformLocation(m_shaderID, "directional.diffuse");
+	m_uniformCamPosition = glGetUniformLocation(m_shaderID, "view_pos");
 }
 
 	

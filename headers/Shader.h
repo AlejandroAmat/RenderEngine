@@ -19,10 +19,16 @@ public:
 	const GLuint getLightColorUniform() const { return m_uniformLightColor; }
 	const GLuint getLightPosUniform() const { return m_uniformLightPosition; }
 	const GLuint getLightAmbientUniform() const { return m_uniformLightAmbientIntensity; }
+	const GLuint getLightDiffuseUniform() const { return m_uniformDiffIntensity; }
+	const GLuint getViewPosition() const { return m_uniformCamPosition; }
 	~Shader();
 
 private:
-	GLuint m_shaderID, m_uniformProjection, m_uniformModel, m_uniformView, m_uniformTexture, m_uniformLightColor = 0, m_uniformLightAmbientIntensity, m_uniformLightPosition;
+	GLuint m_shaderID, m_uniformProjection, m_uniformModel,
+		m_uniformView, m_uniformTexture, m_uniformCamPosition,
+		m_uniformLightColor, m_uniformLightAmbientIntensity,
+		m_uniformLightPosition, m_uniformDiffIntensity;
+
 	void compileShader(const char* vert, const char* frag);
 	void addShader(GLuint program, const char* shaderCode, GLenum shaderType);
 };
