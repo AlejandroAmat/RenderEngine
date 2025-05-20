@@ -145,6 +145,7 @@
     <ClCompile Include="..\src\Light.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Mesh.cpp" />
+    <ClCompile Include="..\src\PointLight.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
     <ClCompile Include="..\src\Window.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\headers\Camera.h" />
     <ClInclude Include="..\headers\Light.h" />
     <ClInclude Include="..\headers\Mesh.h" />
+    <ClInclude Include="..\headers\PointLight.h" />
     <ClInclude Include="..\headers\Shader.h" />
     <ClInclude Include="..\headers\stb_image.h" />
     <ClInclude Include="..\headers\Texture.h" />
