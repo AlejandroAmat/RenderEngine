@@ -6,9 +6,6 @@ Shader::Shader() {
   m_uniformProjection = 0;
   m_uniformView = 0;
   m_uniformTexture = 0;
-  m_uniformLightColor = 0;
-  m_uniformLightAmbientIntensity = 0;
-  m_uniformLightDirection = 0;
 }
 
 void Shader::createShader(const char *vert, const char *frag) {
@@ -83,14 +80,37 @@ void Shader::compileShader(const char *vert, const char *frag) {
   m_uniformModel = glGetUniformLocation(m_shaderID, "model");
   m_uniformView = glGetUniformLocation(m_shaderID, "view");
   m_uniformTexture = glGetUniformLocation(m_shaderID, "theTexture");
-  m_uniformLightColor = glGetUniformLocation(m_shaderID, "directional.color");
-  m_uniformLightAmbientIntensity =
-      glGetUniformLocation(m_shaderID, "directional.ambient");
-  m_uniformLightDirection = glGetUniformLocation(m_shaderID, "directional.dir");
-  m_uniformLightPos = glGetUniformLocation(m_shaderID, "directional.pos");
-  m_uniformDiffIntensity =
-      glGetUniformLocation(m_shaderID, "directional.diffuse");
   m_uniformCamPosition = glGetUniformLocation(m_shaderID, "view_pos");
+
+  _directional.uniformColor =
+      glGetUniformLocation(m_shaderID, "directional.light.color");
+  _directional.uniformAmbient =
+      glGetUniformLocation(m_shaderID, "directional.light.ambient");
+  _directional.uniformDiffuse =
+      glGetUniformLocation(m_shaderID, "directional.light.diffuse");
+
+  _directional.uniformDir = glGetUniformLocation(m_shaderID, "directional.dir");
+
+  /////// point
+  _point.uniformColor = glGetUniformLocation(m_shaderID, "point.light.color");
+  _point.uniformAmbient =
+      glGetUniformLocation(m_shaderID, "point.light.ambient");
+  _point.uniformDiffuse =
+      glGetUniformLocation(m_shaderID, "point.light.diffuse");
+
+  _point.uniformPosition = glGetUniformLocation(m_shaderID, "point.pos");
+  _point.uniformConstant = glGetUniformLocation(m_shaderID, "point.constant");
+  _point.uniformLinear = glGetUniformLocation(m_shaderID, "point.linear");
+  _point.uniformExp = glGetUniformLocation(m_shaderID, "point.exp");
+
+  /*
+   m_uniformLightPos = glGetUniformLocation(m_shaderID,
+  "directional.pos");
+  m_uniformConstant = glGetUniformLocation(m_shaderID,
+  "view_pos");
+  m_uniformLinear = glGetUniformLocation(m_shaderID, "view_pos");
+  m_uniformExp = glGetUniformLocation(m_shaderID, "view_pos");
+  */
 }
 
 void Shader::addShader(GLuint program, const char *shaderCode,

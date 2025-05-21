@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "Camera.h"
-#include "Light.h"
+#include "DirectionalLight.h"
 #include "Mesh.h"
 #include "PointLight.h"
 #include "Shader.h"
@@ -103,7 +103,9 @@ int main() {
   createShaders();
   GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0,
          uniformLightDir = 0, unoformLightAmbient = 0, uniformLightColor = 0,
-         uniformDiffuse = 0, uniformViewPos = 0, uniformLightPos = 0;
+         uniformDiffuse = 0, uniformViewPos = 0, uniformLightPos = 0,
+         uniformConstant = 0, uniformLinear = 0, uniformExp = 0;
+
   glm::mat4 projection = glm::perspective(glm::radians(60.0f),
                                           (GLfloat)mainWindow.getBufferWidth() /
                                               mainWindow.getBufferHeight(),
@@ -115,17 +117,14 @@ int main() {
   t2.loadTexture();
 
   Camera camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),
-                -180.0f, 0.0f, 5.0f, 0.5f);
-  /*std::unique_ptr<Light> lightPtr = std::make_unique<Light>(
-          glm::vec3(0.0f, 10.0f, 0.0f),
-          glm::vec3(0.7f, 0.5f, 0.8f),
-          0.3f,
-          0.2f
-  );*/
+                -180.0f, 0.0f, 2.0f, 1.3f);
+
+  std::unique_ptr<DirectionalLight> directionalLight =
+      std::make_unique<DirectionalLight>(glm::vec3(0.7f, 0.5f, 0.8f), 0.6f,
+                                         0.4f, glm::vec3(0.0f, 10.0f, 0.0f));
 
   std::unique_ptr<PointLight> pointLight = std::make_unique<PointLight>(
-      glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.7f, 0.5f, 0.8f), 0.6f, 0.4f,
-      glm::vec3(3.0f, 0.5f, 6.0f));
+      glm::vec3(0.0f, 0.0f, 1.0f), 5.0, 0.7, glm::vec3(0.0, 10.0, 0.0));
 
   float grad = 0;
   while (!mainWindow.getShouldClose()) {
@@ -146,12 +145,9 @@ int main() {
     uniformModel = shadersList[0].getModelUniform();
     uniformProjection = shadersList[0].getProjectionUniform();
     uniformView = shadersList[0].getViewUniform();
-    uniformLightColor = shadersList[0].getLightColorUniform();
-    uniformLightDir = shadersList[0].getLightDirectionUniform();
-    unoformLightAmbient = shadersList[0].getLightAmbientUniform();
-    uniformDiffuse = shadersList[0].getLightDiffuseUniform();
-    uniformViewPos = shadersList[0].getViewPosition();
-    uniformLightPos = shadersList[0].getLightPosUniform();
+
+    shadersList[0].useDirectionalLight(directionalLight);
+    shadersList[0].usePointLight(pointLight);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(
@@ -167,13 +163,15 @@ int main() {
                        glm::value_ptr(camera.calculateViewMatrix()));
     glm::vec3 pos = camera.return_position();
     glUniform3f(uniformViewPos, pos.x, pos.y, pos.z);
-    pointLight->useLight(uniformLightColor, uniformLightDir,
-                         unoformLightAmbient, uniformDiffuse, uniformLightPos);
+
+    directionalLight->useDirectionalLight(uniformLightColor, uniformLightDir,
+                                          unoformLightAmbient, uniformDiffuse);
+
     t1.useTexture();
     objList[1]->RenderMesh();
 
     glm::mat4 model_0 = glm::mat4(1.0f);
-    model_0 = glm::translate(model_0, glm::vec3(0.0f, 1.0f, -2.4f));
+    model_0 = glm::translate(model_0, glm::vec3(0.0f, 1.0f, 20.4f));
     model_0 = glm::rotate(model_0, glm::radians(grad),
                           glm::vec3(0.0f, 1.0f, 0.0f)); // Optional: Rotate
 

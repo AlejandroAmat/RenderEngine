@@ -1,11 +1,13 @@
 #include "PointLight.h"
 
-void PointLight::useLight(GLuint colorLocation, GLuint dirLocation,
-                          GLuint intensityLocation, GLuint diffuseLocation,
-                          GLuint positionLocation) {
-  glUniform3f(colorLocation, _col.x, _col.y, _col.z);
-  glUniform3f(dirLocation, _dir.x, _dir.y, _dir.z);
-  glUniform1f(intensityLocation, _intensity);
-  glUniform1f(diffuseLocation, _diff_intensity);
+void PointLight::usePointLight(GLuint colorLocation, GLuint intensityLocation,
+                               GLuint diffuseLocation, GLuint positionLocation,
+                               GLuint constantLocation, GLuint linearLocation,
+                               GLuint expLocation) {
+
+  useLight(colorLocation, intensityLocation, diffuseLocation);
   glUniform3f(positionLocation, _position.x, _position.y, _position.z);
+  glUniform1f(constantLocation, _constant);
+  glUniform1f(linearLocation, _linear);
+  glUniform1f(expLocation, _exp);
 }
