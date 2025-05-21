@@ -66,12 +66,13 @@ void computeNormals(unsigned int *indices, unsigned int indexCount,
 void CreateObjects() {
   unsigned int indices[] = {0, 3, 1, 1, 3, 2, 2, 3, 0, 0, 1, 2};
 
-  // unsigned int indices[] = {
-  //	2,3,0,
-  //	1,3,2,
-  //	0,3,1,
-  //	0,1,2
-  // };
+  unsigned int floor_indices[] = {0, 2, 1, 1, 2, 3};
+
+  GLfloat floor_vertices[] = {
+      -10.0, 0.0, -10.0, 0.0, 0.0,  0.0,   1.0, 0.0,  10.0, 0.0, -10.0,
+      0.0,   0.0, 0.0,   1.0, 0.0,  -10.0, 0.0, 10.0, 0.0,  0.0, 0.0,
+      1.0,   0.0, 10.0,  0.0, 10.0, 0.0,   0.0, 0.0,  1.0,  0.0,
+  };
 
   GLfloat vertices[] = {
       //	x      y      z			u	  v         nx    ny nz
@@ -88,6 +89,10 @@ void CreateObjects() {
   Mesh *obj2 = new Mesh();
   obj2->createMesh(vertices, indices, 32, 12);
   objList.push_back(obj2);
+
+  Mesh *floor = new Mesh();
+  floor->createMesh(floor_vertices, floor_indices, 32, 6);
+  objList.push_back(floor);
 }
 
 void createShaders() {
@@ -120,11 +125,12 @@ int main() {
                 -180.0f, 0.0f, 2.0f, 1.3f);
 
   std::unique_ptr<DirectionalLight> directionalLight =
-      std::make_unique<DirectionalLight>(glm::vec3(0.7f, 0.5f, 0.8f), 0.6f,
-                                         0.4f, glm::vec3(0.0f, 10.0f, 0.0f));
+      std::make_unique<DirectionalLight>(glm::vec3(1.0f, 1.0f, 0.2f), 0.3f,
+                                         0.5f, glm::vec3(0.0f, 10.0f, 0.0f));
 
-  std::unique_ptr<PointLight> pointLight = std::make_unique<PointLight>(
-      glm::vec3(0.0f, 0.0f, 1.0f), 5.0, 0.7, glm::vec3(0.0, 10.0, 0.0));
+  std::unique_ptr<PointLight> pointLight =
+      std::make_unique<PointLight>(glm::vec3(0.0f, 0.0f, 1.0f), 4.6, 1.35,
+                                   glm::vec3(0.0, 5.0, -5.0), 1.0, 0.09, 0.032);
 
   float grad = 0;
   while (!mainWindow.getShouldClose()) {
@@ -169,15 +175,20 @@ int main() {
 
     t1.useTexture();
     objList[1]->RenderMesh();
+    model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+    objList[2]->RenderMesh();
 
     glm::mat4 model_0 = glm::mat4(1.0f);
-    model_0 = glm::translate(model_0, glm::vec3(0.0f, 1.0f, 20.4f));
+    model_0 = glm::translate(model_0, glm::vec3(0.0f, 1.0f, 5.4f));
     model_0 = glm::rotate(model_0, glm::radians(grad),
                           glm::vec3(0.0f, 1.0f, 0.0f)); // Optional: Rotate
 
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model_0));
     t2.useTexture();
     objList[0]->RenderMesh();
+
     glUseProgram(0);
     mainWindow.swapBuffers();
   }

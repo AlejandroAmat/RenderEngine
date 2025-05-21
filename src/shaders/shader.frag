@@ -58,8 +58,8 @@ vec3 DirectionalLighting(BaseLight light, vec3 dir) {
     if (diffuseFactor > 0.0f) {
         vec3 vec_specular = normalize(view_pos - FragPos);
         vec3 reflected = normalize(reflect(-dir, normalize(Normal)));
-        float spec = pow(max(dot(vec_specular, reflected), 0.0f), 8);
-        specular_comp = light.color * spec;
+        float spec = pow(max(dot(vec_specular, reflected), 0.0f), 128);
+        specular_comp = light.color * spec *2;
     }
     
     vec3 lightResult = ambient_col + diffuseColor + specular_comp;

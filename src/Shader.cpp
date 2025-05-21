@@ -79,7 +79,6 @@ void Shader::compileShader(const char *vert, const char *frag) {
   m_uniformProjection = glGetUniformLocation(m_shaderID, "projection");
   m_uniformModel = glGetUniformLocation(m_shaderID, "model");
   m_uniformView = glGetUniformLocation(m_shaderID, "view");
-  m_uniformTexture = glGetUniformLocation(m_shaderID, "theTexture");
   m_uniformCamPosition = glGetUniformLocation(m_shaderID, "view_pos");
 
   _directional.uniformColor =
